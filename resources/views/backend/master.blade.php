@@ -24,7 +24,11 @@
 </head>
 
 <body id="page-top">
-
+<style>
+    a:hover{
+        text-decoration: none
+    }
+</style>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -32,9 +36,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-dollar-sign "></i>
+                    <i class="fas fa-shopping-cart "></i>
                     {{-- <i class="fas fa-laugh-wink"></i> --}}
                 </div>
                 <div class="sidebar-brand-text mx-3">{{ config("app.name") }}</div>
@@ -48,6 +52,29 @@
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
+            </li>
+            <li
+                class="nav-item {{ (url()->current() == route('product.index') || url()->current() == route('category.index') || url()->current() == route('brand.index') ) ? 'active' : '' }}">
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Product Mangement</span>
+                </a>
+                <div id="collapseTwo"
+                    class="collapse {{ (url()->current() == route('product.index') || url()->current() == route('category.index') || url()->current() == route('brand.index') ) ? 'show' : '' }}"
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Product Mangement:</h6>
+                        <a class="collapse-item {{ (url()->current() == route('product.index')) ? 'active' : '' }}"
+                            href="{{ route('product.index') }}">Product</a>
+                        <a class="collapse-item {{ (url()->current() == route('category.index')) ? 'active' : '' }}"
+                            href="{{ route('category.index') }}">Category</a>
+                        <a class="collapse-item {{ (url()->current() == route('brand.index')) ? 'active' : '' }}"
+                            href="{{ route('brand.index') }}">Brand</a>
+                    </div>
+                </div>
+
             </li>
             {{-- <li class="nav-item  {{ (url()->current() == route('accounttype.index')) ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('accounttype.index') }}">
@@ -64,7 +91,7 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-           
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -84,14 +111,14 @@
                     </button>
 
                     <!-- Topbar Search -->
-                 
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
                         <!-- Nav Item - Alerts -->
-                      
+
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -99,8 +126,10 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name }}</span>
-                                <img class="img-profile rounded-circle" src="{{ Avatar::create(auth()->user()->name)->toBase64() }}">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name
+                                    }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ Avatar::create(auth()->user()->name)->toBase64() }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -118,13 +147,14 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a onclick="event.preventDefault();document.getElementById('from_logout').submit()" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a onclick="event.preventDefault();document.getElementById('from_logout').submit()"
+                                    class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
                                 <form action="{{ route('logout') }}" id="from_logout" method="POST">
-                                @csrf
-                            </form>
+                                    @csrf
+                                </form>
                             </div>
                         </li>
 
@@ -132,11 +162,11 @@
 
                 </nav>
                 <!-- End of Topbar -->
-     <!-- Begin Page Content -->
-     <div class="container-fluid">
-                @yield('content')
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    @yield('content')
 
-            </div>
+                </div>
                 <!-- /.container-fluid -->
 
 
@@ -185,6 +215,14 @@
         </div>
     </div>
 
+
+
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    
+</div>
+
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -201,6 +239,8 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('backend/js/demo/chart-pie-demo.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> --}}
 
     @yield('script_js')
 
