@@ -16,7 +16,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest('id')->get();
+        $categories = Category::latest('id')->withCount('Product')->get();
         return view('backend.category.index', [
             'categories' => $categories,
         ]);
