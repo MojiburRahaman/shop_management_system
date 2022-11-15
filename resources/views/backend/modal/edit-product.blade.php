@@ -20,7 +20,7 @@
                             <input autofocus spellcheck="true" @class(['form-control']) type="text"
                                 title="Product Title" title="Product Title" placeholder="Product Title"
                                 value="{{ $product->title }}" name="title">
-                            <span @class(['text-danger','error_msg']) id="error_title"></span>
+                            <span @class(['text-danger','error1_msg']) id="error1_title"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -37,7 +37,7 @@
 
                                 @endforelse
                             </select>
-                            <span @class(['text-danger','error_msg']) id="error_cat"></span>
+                            <span @class(['text-danger','error1_msg']) id="error1_cat"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -53,36 +53,17 @@
 
                                 @endforelse
                             </select>
-                            <span @class(['text-danger','error_msg']) id="error_brand"></span>
+                            <span @class(['text-danger','error1_msg']) id="error1_brand"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="title">
-                                Bar Code</label>
-                            <div class="input-group">
-
-                                <span class="input-group-text" id="basic-addon1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-upc-scan" viewBox="0 0 16 16">
-                                        <path
-                                            d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z">
-                                        </path>
-                                    </svg>
-                                </span>
-                                <input @class(['form-control',]) type="text" title="Product Bar Code"
-                                    value="{{ $product->barcode }}" placeholder="Product Bar Code" name="barcode">
-                            </div>
-
-                            <span @class(['text-danger','error_msg']) id="error_barcode"></span>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="barcode">
+                            <label for="sku_no">
+                                <span @class('text-danger')>*</span>
                                 SKU No</label>
-                            <input @class(['form-control',]) type="text" title="Sku NO " id="barcode"
+                            <input @class(['form-control',]) type="text" title="Sku NO " id="sku_no"
                                 value="{{ $product->sku_no }}" placeholder="Sku No" name="sku_no">
+                                <span @class(['text-danger','error1_msg'])  id="error1_sku"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -92,6 +73,7 @@
                             <input @class(['form-control',]) type="text" title="Product Purchase Rate"
                                 value="{{ $product->purchase_rate }}" id="purchase_rate" placeholder="Purchase Rate"
                                 name="purchase_rate">
+                                <span @class(['text-danger','error_msg'])  id="error1_purchase"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -100,6 +82,7 @@
                                 Sale Rate</label>
                             <input @class(['form-control',]) type="text" title="Product Sale Rate" id="sale_rate"
                                 value="{{ $product->sale_rate }}" placeholder="Purchase Rate" name="sale_rate">
+                                <span @class(['text-danger','error_msg'])  id="error1_sale"></span>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
@@ -151,8 +134,13 @@
                 Command: toastr["success"](response.data.success);
                     })
                     .catch(function (error) {
-                    $('#error').html(error.response.data.errors.title);
-
+                        $('.error1_msg').html('');
+                        $('#error1_title').html(error.response.data.errors.title);
+                        $('#error1_sku').html(error.response.data.errors.sku_no);
+                        $('#error1_cat').html(error.response.data.errors.category_id);
+                        $('#error1_brand').html(error.response.data.errors.brand_id);
+                        $('#error1_purchase').html(error.response.data.errors.purchase_rate);
+                        $('#error1_sale').html(error.response.data.errors.sale_rate);
                     });
     });
 </script>

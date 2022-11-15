@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Http\Requests\{
-    ProductValidate
+use App\Http\Requests\Product\{
+    ProductValidate,
+    ProductUpdateValidate,
 };
 use App\Models\{
     Brand,
@@ -52,14 +53,13 @@ class ProductController extends Controller
     // public function store(Request $request)
     public function store(ProductValidate $request)
     {
-        return $request;
+        // return $request;
 
         $product = new Product;
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->title = $request->title;
         $product->slug = Str::slug($request->title);
-        $product->barcode = $request->barcode;
         $product->sku_no = $request->sku_no;
         $product->purchase_rate = $request->purchase_rate;
         $product->sale_rate = $request->sale_rate;
@@ -119,14 +119,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateValidate $request, $id)
     {
         $product =  Product::findorfail($request->id);
         $product->category_id = $request->category_id;
         $product->brand_id = $request->brand_id;
         $product->title = $request->title;
         $product->slug = Str::slug($request->title);
-        $product->barcode = $request->barcode;
         $product->sku_no = $request->sku_no;
         $product->purchase_rate = $request->purchase_rate;
         $product->sale_rate = $request->sale_rate;

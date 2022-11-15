@@ -6,6 +6,7 @@ use App\Http\Controllers\Dashboard\{
     CategoryController,
     DashboardController,
     ProductController,
+    SupplierController,
 };
 
 
@@ -16,9 +17,10 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-    Route::resource('product', ProductController::class);
-    Route::resource('category', CategoryController::class);
-    Route::resource('brand', BrandController::class);
+    Route::resource('supplier', SupplierController::class)->except('create');
+    Route::resource('product', ProductController::class)->except('create','show');
+    Route::resource('category', CategoryController::class)->except('create','show');
+    Route::resource('brand', BrandController::class)->except('create','show');
 });
 
 require __DIR__ . '/auth.php';

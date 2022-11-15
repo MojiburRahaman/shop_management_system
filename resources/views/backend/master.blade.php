@@ -76,6 +76,29 @@
                 </div>
 
             </li>
+            <li
+                class="nav-item {{ (url()->current() == route('supplier.index') || url()->current() == route('supplier.index') || url()->current() == route('supplier.index') ) ? 'active' : '' }}">
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#supplier"
+                    aria-expanded="false" aria-controls="supplier">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Supplier</span>
+                </a>
+                <div id="supplier"
+                    class="collapse {{ (url()->current() == route('supplier.index') || url()->current() == route('supplier.index') || url()->current() == route('supplier.index') ) ? 'show' : '' }}"
+                    aria-labelledby="supplier" data-parent="#accordionSidebar" style="">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Supplier:</h6>
+                        <a class="collapse-item {{ (url()->current() == route('supplier.index')) ? 'active' : '' }}"
+                            href="{{ route('supplier.index') }}">Supplier</a>
+                        <a class="collapse-item {{ (url()->current() == route('supplier.index')) ? 'active' : '' }}"
+                            href="{{ route('supplier.index') }}">Due Supplier</a>
+                        <a class="collapse-item {{ (url()->current() == route('supplier.index')) ? 'active' : '' }}"
+                            href="{{ route('supplier.index') }}">Paid Supplier</a>
+                    </div>
+                </div>
+
+            </li>
             {{-- <li class="nav-item  {{ (url()->current() == route('accounttype.index')) ? 'active' : ''  }}">
                 <a class="nav-link" href="{{ route('accounttype.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>

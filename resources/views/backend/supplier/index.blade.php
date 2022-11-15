@@ -29,25 +29,21 @@
                             <thead>
                                 <tr role="row">
                                     <th>SL</th>
-                                    <th>Thumbnail</th>
-                                    <th>Title</th>
-                                    <th>SKU No</th>
-                                    <th>Purchase Price</th>
-                                    <th>Sale Price</th>
-                                    <th>Stock</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Due Amount</th>
+                                    <th>Paid Amount</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($products as $product)
-                                <tr id="row{{ $product->id }}">
+                                @forelse ($suppliers as $supplier)
+                                <tr id="row{{ $supplier->id }}">
                                     <td class="sorting_1">{{ $loop->index+1 }}</td>
-                                    <td><img width="60" src="{{ asset('storage/thumbnail/'.$product->thumbnail) }}" alt=""> </td>
-                                    <td>{{ $product->title }}</td>
-                                    <td>{{ $product->sku_no }}</td>
-                                    <td>{{ $product->purchase_rate }}</td>
-                                    <td>{{ $product->sale_rate }}</td>
-                                    <td>{{ $product->stock }}</td>
+                                    <td>{{ $supplier->name }}</td>
+                                    <td>{{ $supplier->email }}</td>
+                                    <td>{{ $supplier->due_amount }}</td>
+                                    <td>{{ $product->paid_amount }}</td>
                                     <td>
                                         <a href="javascript:void(0)" onclick="EditPRoduct({{$product->id}})"
                                             class="btn-sm btn-info">
@@ -79,7 +75,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+{{-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -202,7 +198,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> --}}
 
 @endsection
 @section('css')
@@ -220,68 +216,6 @@
     $(document).ready( function () {
     $('#myTable').DataTable();
 } );
-function GenrateCode(){
-
-    const date = new Date();
-
-// // generating a random number
-const a = Math.floor(Math.random() * (99999 - 00001 + 1)) + 00001;
-const b= a+date.getSeconds();
-$('#sku_no').val(b);
-$('#error_sku').html('');
-
-}
 </script>
 
-<script>
-function DeleteCategory(id){
-           var id = id;
-               axios.delete("product/"+id+"")
-        .then(function (response) {
-            $('#row'+id).remove();
-            Command: toastr["error"](response.data.success);
-        })
-        .catch(function (error) {
-                    Command: toastr["error"]('Not Found');
-                });
-                    }
-                
-function EditPRoduct(id){
-           var id = id;
-               axios.get("product/"+id+"/edit")
-        .then(function (response) {
-
-            $('#Modal').html(response.data.html);
-            $('#Modal').modal('show');
-            
-                })
-                .catch(function (error) {
-                    $('#error_title').html(error.response.data.errors.title);
-                });
-                    }
-
-$(document).ready(function(){
-
-$('#upload_form').on('submit', function(event){
- event.preventDefault();
- axios.post("{{ route('product.store') }}", new FormData(this))
-            .then(function (response) {
-                Command: toastr["success"](response.data.success);
-                $("#myTable").load(location.href +" #myTable");
-                $('#exampleModalCenter').modal('hide');
-                $('.error_msg').html('');
-            })
-            .catch(function (error) {
-                        $('.error_msg').html('');
-                        $('#error_title').html(error.response.data.errors.title);
-                        $('#error_sku').html(error.response.data.errors.sku_no);
-                        $('#error_cat').html(error.response.data.errors.category_id);
-                        $('#error_brand').html(error.response.data.errors.brand_id);
-                        $('#error_purchase').html(error.response.data.errors.purchase_rate);
-                        $('#error_sale').html(error.response.data.errors.sale_rate);
-                    });
-});
-
-});
-</script>
 @endsection

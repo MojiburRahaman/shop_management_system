@@ -19,8 +19,7 @@ return new class extends Migration
             $table->foreignId('brand_id')->index()->nullable();
             $table->string('title')->index();
             $table->string('slug');
-            $table->string('barcode')->nullable();
-            $table->integer('sku_no')->nullable();
+            $table->integer('sku_no');
             $table->integer('purchase_rate');
             $table->integer('sale_rate');
             $table->integer('stock')->nullable();

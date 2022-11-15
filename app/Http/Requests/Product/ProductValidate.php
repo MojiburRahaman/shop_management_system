@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,13 +27,16 @@ class ProductValidate extends FormRequest
             'title' => ['required', 'unique:products,title'],
             'category_id' => ['required', 'exists:categories,id'],
             'brand_id' => ['nullable', 'exists:brands,id'],
-            'barcode' => ['nullable',],
+            'sku_no' => ['required',],
+            'purchase_rate'=>['required'],
+            'sale_rate'=>['required'],
         ];
     }
     public function messages()
     {
         return [
-            'category_id.required'  => 'Please Select a Category'
+            'category_id.required'  => 'Please Select a Category',
+            'required.required'  => 'SKU No Required',
         ] ;
     }
 }
